@@ -1,20 +1,41 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import ExerciseModal from './ExerciseModal.jsx';
 import ExerciseEntry from './ExerciseEntry.jsx';
 
 
 
 const App = () => {
-  const [exerciseList, setExerciseList] = useState([])
+  const [isOpen, setIsOpen] = useState(false)
 
-  const addExercise = () => {
+  const [exercisesToRender, setExercisesToRender] = useState([])
 
+  const addExercise = (exerciseName) => {
+    if(!exercisesToRender.includes(exerciseName)) {
+      setExercisesToRender([...exercisesToRender, exerciseName]);
+    }
   }
+
+  const toggleModal = () => {
+    if (isOpen) {
+      setIsOpen(false);
+    } else {
+      setIsOpen(true);
+    }
+  }
+
+
+
+
   return (
     <div>
       <h1>Exercise Tracker</h1>
-      <ExerciseEntry name={'bench press'}/>
-      <button onClick></button>
+      {isOpen ? <ExerciseModal toggleModal={toggleModal} addExercise={addExercise}/> : <></>}
+      {/* <ExerciseEntry name={exerciseName}/> */}
+      {exercisesToRender?.map((exerciseName, index) => (
+        <ExerciseEntry name={ exerciseName } key={ index } />
+      ))}
+
+      <button onClick={toggleModal}>Add exercise</button>
     </div>
   )
 }

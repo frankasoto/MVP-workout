@@ -9,7 +9,7 @@ const ExerciseEntry = ({ name }) => {
   const [sets, setSets] = useState([<SetEntry key={0} />])
   const [numOfSets, setNumOfSets] = useState(1)
 
-
+  console.log('name is:', name)
 
   const addSet = () => {
     console.log('set added');
@@ -17,7 +17,6 @@ const ExerciseEntry = ({ name }) => {
       setNumOfSets( numOfSets + 1);
       setSets([...sets, <SetEntry key={numOfSets}/>]);
     }
-
   }
   return (
 

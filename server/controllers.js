@@ -1,5 +1,7 @@
 const { Client } = require('pg');
 require('dotenv').config();
+
+
 const client = new Client({
   host: process.env.PG_HOST,
   user: process.env.PG_USER,
@@ -14,4 +16,19 @@ client.connect()
   .catch((err) => console.log(err));
 
 
-  module.exports = client;
+const getExerciseList = (req, res) => {
+
+    let query = 'SELECT exercise_name, category, videoLink FROM exercises';
+
+    client.query(query)
+      .then((data) => {
+        res.send(data.rows);
+      })
+      .catch((err) => {
+        console.log('err', err);
+        res.sendStatus(404);
+      });
+
+}
+
+module.exports.getExerciseList = getExerciseList;
