@@ -2,32 +2,39 @@ import React, { useState, useEffect } from 'react';
 
 
 
-const SetEntry = ({ index, entry, addEntry }) => {
+const SetEntry = ({ index, entry, addEntry, name, exerciseIndex, exerciseToAdd }) => {
 
   const [weight, setWeight] = useState(0);
   const [reps, setReps] = useState(0);
   const [notes, setNotes] = useState('');
 
   let entryToSubmit = {};
+  // useEffect(() => {
+  //   addEntry(entryToSubmit);
+  // }, [])
+  // console.log('eIndex', exerciseIndex);
+
   useEffect(() => {
-    addEntry(entryToSubmit);
-  }, [])
 
-
-  useEffect(() => {
-
-    entry[index] = entryToSubmit[index] = {
+     entryToSubmit[index + 1] = {
       weight: weight,
       reps: reps,
       notes: notes
     }
+    entry[index] = entryToSubmit;
+    exerciseToAdd[exerciseIndex] ={
+      name: name,
+      entry: entry
+    };
+    // exerciseToAdd[exerciseIndex][name] = entry;
+
   }, [weight, reps, notes])
 
 
 
   return (
     <form >
-      {console.log('entry', entryToSubmit)}
+
       <label>Weight:
         <input
           type="number"

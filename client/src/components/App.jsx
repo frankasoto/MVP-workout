@@ -10,12 +10,13 @@ const App = () => {
   const [exercisesToRender, setExercisesToRender] = useState([]);
   const [exerciseToAdd, setExerciseToAdd] = useState([]); //exercises that will be submitted upon click
 
-
+  // let exerciseToAdd = []
 
 
 
 
   const submitEntry = () => {
+    console.log('exercise to add', exerciseToAdd);
     axios.post('/exercises', exerciseToAdd)
       .then(() => console.log('successfully submitted'))
       .catch((err) => console.log(err));
@@ -53,6 +54,8 @@ const App = () => {
         key={ index }
         name={ exerciseName }
         exerciseIndex={ index }
+        exerciseToAdd={ exerciseToAdd }
+
 
 
         />
