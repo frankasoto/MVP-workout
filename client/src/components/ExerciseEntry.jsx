@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 
-const ExerciseEntry = ({ name, exerciseIndex }) => {
+const ExerciseEntry = ({ name, exerciseIndex, exerciseToAdd }) => {
 
   const [sets, setSets] = useState([''])
   const [entry, setEntry] = useState([])
@@ -14,7 +14,7 @@ const ExerciseEntry = ({ name, exerciseIndex }) => {
   entryToAdd = {
     name: name
   };
-  entryToAdd[exerciseIndex] = entry;
+  // entryToAdd[exerciseIndex] = entry;
 
   const addEntry = (newEntry) => {
     setEntry([...entry, newEntry]);
@@ -37,18 +37,19 @@ const ExerciseEntry = ({ name, exerciseIndex }) => {
   return (
 
     <div>
-      {console.log('entry', exerciseIndex)}
+      {/* {console.log('entry', exerciseIndex)} */}
       <h3>Exercise: {name}</h3>
       {sets.map((set, index) => (
       <SetEntry
         key={ index }
-        index={ index + 1 }
+        index={ index }
         entry={ entry }
         addEntry={ addEntry }
         name={ name }
-
-
+        exerciseIndex={ exerciseIndex }
+        exerciseToAdd={ exerciseToAdd }
       />
+
       ))}
 
       {sets.length < 5 ? <button className="addSet" onClick={addSet}>Add Set</button> : <></>}

@@ -33,7 +33,7 @@ const getExerciseList = (req, res) => {
 const submitWorkout = (req, res) => {
 
   //take rows of data where each row is contains info on, and set info (weight/reps)
-  console.log('req', req.body)
+  console.log('req', req.body[0].entry)
   // for (let key in req.body) {
   //   console.log('key in req', req.body[key]);
   // }
