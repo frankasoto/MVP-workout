@@ -2,26 +2,36 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import format from 'date-fns/format'
 import moment from 'moment';
+import WorkoutModal from './WorkoutModal.jsx';
 
 const DisplayDates = ({ date }) => {
 
-  const [workoutInfo, setWorkoutInfo] = useState('...loading')
+  const [workoutInfo, setWorkoutInfo] = useState([])
+  const [showModal, setShowModal] = useState(false);
 
   date = moment(date).format('MM-DD-yyyy');
   const grabWorkout = () => {
     axios.get(`/exercises/dates/${date}`)
       .then((results) => {
-        console.log('results are', results.data)
         setWorkoutInfo(results.data);
+        toggleModal();
       })
+      .catch((err) => console.log(err));
   }
 
-  // date = moment(date).format('MM-DD-yyyy');
+  const toggleModal = () => {
+    if (showModal) {
+      setShowModal(false);
+    } else {
+      setShowModal(true);
+    }
+  }
 
 
   return (
     <div onClick={grabWorkout}>
       {date}
+      {showModal ?<WorkoutModal workoutInfo={ workoutInfo } toggleModal={ toggleModal }/> : <></>}
     </div>
   )
 

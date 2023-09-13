@@ -17,10 +17,6 @@ const StyledContent = styled.div`
 text-align: center;
 display: flex;
 flex-direction: column;
-
-
-
-
 `
 const ExerciseModal = ({toggleModal, addExercise}) => {
   const exerciseTypes = ['chest', 'back', 'triceps', 'biceps', 'legs', 'shoulders', 'reset filter'];
