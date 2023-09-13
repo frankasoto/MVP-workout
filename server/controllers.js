@@ -17,7 +17,7 @@ client.connect()
 
 
 const getExerciseList = (req, res) => {
-
+    //used to get the list of exercises for the modal  //////sort it by category?
     let query = 'SELECT exercise_name, category, videoLink FROM exercises';
 
     client.query(query)
@@ -28,7 +28,21 @@ const getExerciseList = (req, res) => {
         console.log('err', err);
         res.sendStatus(404);
       });
-
 }
 
+const submitWorkout = (req, res) => {
+
+  //take rows of data where each row is contains info on, and set info (weight/reps)
+  console.log('req', req.body)
+  // for (let key in req.body) {
+  //   console.log('key in req', req.body[key]);
+  // }
+  const query = 'INSERT INTO '
+}
+
+
+
+
+
 module.exports.getExerciseList = getExerciseList;
+module.exports.submitWorkout = submitWorkout;

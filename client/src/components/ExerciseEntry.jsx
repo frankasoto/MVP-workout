@@ -1,30 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SetEntry from './SetEntry.jsx';
+import axios from 'axios';
 
 
 
 
-const ExerciseEntry = ({ name }) => {
+const ExerciseEntry = ({ name, exerciseIndex }) => {
 
-  const [sets, setSets] = useState([<SetEntry key={0} />])
-  const [numOfSets, setNumOfSets] = useState(1)
+  const [sets, setSets] = useState([''])
+  const [entry, setEntry] = useState([])
 
-  console.log('name is:', name)
+  let entryToAdd = {};
+  entryToAdd = {
+    name: name
+  };
+  entryToAdd[exerciseIndex] = entry;
 
+  const addEntry = (newEntry) => {
+    setEntry([...entry, newEntry]);
+  }
   const addSet = () => {
-    console.log('set added');
-    if (numOfSets < 5) {
-      setNumOfSets( numOfSets + 1);
-      setSets([...sets, <SetEntry key={numOfSets}/>]);
+    if (sets.length < 5) {
+      setSets([...sets, '']);
     }
   }
+
+  const submit = () => {
+    axios.post('/exercises', {
+      name: name,
+      set_info: entry
+    })
+    .then(()=>console.log('complete'))
+    .catch((err) => console.log(err));
+  }
+
   return (
 
     <div>
+      {console.log('entry', exerciseIndex)}
       <h3>Exercise: {name}</h3>
-      {sets.map(entry => entry)}
+      {sets.map((set, index) => (
+      <SetEntry
+        key={ index }
+        index={ index + 1 }
+        entry={ entry }
+        addEntry={ addEntry }
+        name={ name }
 
-      {numOfSets < 5 ? <button className="addSet" onClick={addSet}>Add Set</button> : <></>}
+
+      />
+      ))}
+
+      {sets.length < 5 ? <button className="addSet" onClick={addSet}>Add Set</button> : <></>}
+      <button onClick={submit}>submit entry</button>
     </div>
 
 

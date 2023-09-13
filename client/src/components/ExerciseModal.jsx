@@ -30,7 +30,6 @@ const ExerciseModal = ({toggleModal, addExercise}) => {
   useEffect(() => {
     axios.get('/exercises')
       .then((results) => {
-        console.log('data retrieved:', results.data);
         setExerciseList([...results.data]);
         setIsLoaded(true);
       })
@@ -40,7 +39,6 @@ const ExerciseModal = ({toggleModal, addExercise}) => {
 
   const addExerciseToRender = (e) => {
     addExercise(e.target.textContent);
-    console.log('content is', e.target.textContent)
     toggleModal(false);
   }
 
@@ -52,7 +50,7 @@ const ExerciseModal = ({toggleModal, addExercise}) => {
       return (
         <div>
         {exerciseTypes.map((category, index) => (
-          <button key={index} onClick={(e) => setTypeToSearch(e.target.textContent) }>{category}</button>
+          <button key={index} onClick={(e) => setTypeToSearch(e.target.textContent)}>{category}</button>
         ))}
 
         {exerciseList.map((entry, index) => (

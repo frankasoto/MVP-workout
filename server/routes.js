@@ -8,7 +8,7 @@ const router = express.Router();
 
 
 
-router.get('/exercises', controllers.getExerciseList)
-
+router.get('/exercises', controllers.getExerciseList);
+router.post('/exercises',controllers.submitWorkout);
 
 module.exports = router;
