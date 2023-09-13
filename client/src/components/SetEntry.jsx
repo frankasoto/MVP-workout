@@ -26,7 +26,7 @@ const SetEntry = ({ index, entry, addEntry, name, exerciseIndex, exerciseToAdd }
       name: name,
       entry: entry
     };
-    // exerciseToAdd[exerciseIndex][name] = entry;
+
 
   }, [weight, reps, notes])
 
