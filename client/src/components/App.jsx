@@ -1,13 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import ExerciseModal from './ExerciseModal.jsx';
 import ExerciseEntry from './ExerciseEntry.jsx';
-
+import axios from 'axios';
 
 
 const App = () => {
   const [isOpen, setIsOpen] = useState(false)
 
-  const [exercisesToRender, setExercisesToRender] = useState([])
+  const [exercisesToRender, setExercisesToRender] = useState([]);
+  const [exerciseToAdd, setExerciseToAdd] = useState([]); //exercises that will be submitted upon click
+
+
+
+
+
+
+  const submitEntry = () => {
+    axios.post('/exercises', exerciseToAdd)
+      .then(() => console.log('successfully submitted'))
+      .catch((err) => console.log(err));
+  }
+
 
   const addExercise = (exerciseName) => {
     if(!exercisesToRender.includes(exerciseName)) {
@@ -29,13 +42,24 @@ const App = () => {
   return (
     <div>
       <h1>Exercise Tracker</h1>
-      {isOpen ? <ExerciseModal toggleModal={toggleModal} addExercise={addExercise}/> : <></>}
-      {/* <ExerciseEntry name={exerciseName}/> */}
+      {isOpen ?
+      <ExerciseModal
+      toggleModal={ toggleModal }
+      addExercise={ addExercise }
+      /> : <></>}
+  {console.log('workout', exerciseToAdd)}
       {exercisesToRender?.map((exerciseName, index) => (
-        <ExerciseEntry name={ exerciseName } key={ index } />
+        <ExerciseEntry
+        key={ index }
+        name={ exerciseName }
+        exerciseIndex={ index }
+
+
+        />
       ))}
 
-      <button onClick={toggleModal}>Add exercise</button>
+      <button onClick={ toggleModal }>Add exercise</button>
+      <button onClick={ submitEntry }>Finish workout</button>
     </div>
   )
 }
