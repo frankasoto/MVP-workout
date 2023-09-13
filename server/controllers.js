@@ -1,6 +1,6 @@
 const { Client } = require('pg');
 require('dotenv').config();
-
+const format = require('date-fns/format')
 
 const client = new Client({
   host: process.env.PG_HOST,
@@ -33,11 +33,18 @@ const getExerciseList = (req, res) => {
 const submitWorkout = (req, res) => {
 
   //take rows of data where each row is contains info on, and set info (weight/reps)
-  console.log('req', req.body[0].entry)
-  // for (let key in req.body) {
-  //   console.log('key in req', req.body[key]);
-  // }
-  const query = 'INSERT INTO '
+  console.log('req', req.body)
+  const query = 'INSERT INTO workoutEntry(exercise_name, info, date_completed) values($1, $2, $3)'
+  req.body.forEach((exercise) => {
+    let dataEntry = [];
+    dataEntry[0] = exercise.name;
+    dataEntry[1] = JSON.stringify(exercise.entry);
+    dataEntry[2] = format(new Date(), 'yyyy-MM-dd');
+
+    client.query(query, dataEntry)
+    .catch(() => res.sendStatus(404));
+  })
+  res.sendStatus(201);
 }
 
 

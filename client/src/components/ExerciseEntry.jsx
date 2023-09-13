@@ -39,6 +39,7 @@ const ExerciseEntry = ({ name, exerciseIndex, exerciseToAdd }) => {
     <div>
       {/* {console.log('entry', exerciseIndex)} */}
       <h3>Exercise: {name}</h3>
+      {console.log('date', Date())}
       {sets.map((set, index) => (
       <SetEntry
         key={ index }
