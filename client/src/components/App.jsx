@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ExerciseModal from './ExerciseModal.jsx';
 import ExerciseEntry from './ExerciseEntry.jsx';
+import MainPage from './MainPage.jsx';
 import axios from 'axios';
-
 
 const App = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -42,6 +42,7 @@ const App = () => {
 
   return (
     <div>
+      <MainPage />
       <h1>Exercise Tracker</h1>
       {isOpen ?
       <ExerciseModal

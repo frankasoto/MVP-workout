@@ -10,12 +10,6 @@ const ExerciseEntry = ({ name, exerciseIndex, exerciseToAdd }) => {
   const [sets, setSets] = useState([''])
   const [entry, setEntry] = useState([])
 
-  let entryToAdd = {};
-  entryToAdd = {
-    name: name
-  };
-  // entryToAdd[exerciseIndex] = entry;
-
   const addEntry = (newEntry) => {
     setEntry([...entry, newEntry]);
   }
@@ -37,9 +31,7 @@ const ExerciseEntry = ({ name, exerciseIndex, exerciseToAdd }) => {
   return (
 
     <div>
-      {/* {console.log('entry', exerciseIndex)} */}
       <h3>Exercise: {name}</h3>
-      {console.log('date', Date())}
       {sets.map((set, index) => (
       <SetEntry
         key={ index }

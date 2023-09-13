@@ -48,8 +48,29 @@ const submitWorkout = (req, res) => {
 }
 
 
+const getDates = (req, res) => {
+
+  const query = `SELECT DISTINCT date_completed FROM workoutEntry`;
+
+  client.query(query)
+    .then((data) => res.send(data.rows))
+    .catch(() => res.sendStatus(404));
+}
+
+const getWorkoutData = (req, res) => {
+
+  console.log('date is:', req.params.date);
+  let date = req.params.date;
+  const query = `SELECT * FROM workoutEntry WHERE date_completed='${date}'`
+  client.query(query)
+    .then((results) => res.send(results.rows))
+    .catch((err) => console.log(err));
+}
+
 
 
 
 module.exports.getExerciseList = getExerciseList;
 module.exports.submitWorkout = submitWorkout;
+module.exports.getDates = getDates;
+module.exports.getWorkoutData = getWorkoutData;
