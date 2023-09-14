@@ -21,4 +21,10 @@ CREATE TABLE IF NOT EXISTS workoutEntry (
 COPY exercises (exercise_name, category, videoLink)
 FROM '/home/frankasoto/MVP-workout/data/exercises.csv'
 DELIMITER ','
-CSV HEADER
+CSV HEADER;
+
+
+COPY workoutEntry (id, exercise_name, info, date_completed)
+FROM '/home/frankasoto/MVP-workout/data/workoutEntry.csv'
+DELIMITER ','
+CSV HEADER;

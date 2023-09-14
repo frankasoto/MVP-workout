@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SetEntry from './SetEntry.jsx';
 import axios from 'axios';
 import VideoDisplay from './VideoDisplay.jsx';
-
+import GraphDisplay from './GraphDisplay.jsx';
 
 
 const ExerciseEntry = ({ name, exerciseIndex, exerciseToAdd }) => {
@@ -12,6 +12,12 @@ const ExerciseEntry = ({ name, exerciseIndex, exerciseToAdd }) => {
 
   const [videoLink, setVideoLink] = useState('');
   const [showVideo, setShowVideo] = useState(false)
+
+  const [showGraph, setShowGraph] = useState(false);
+
+
+
+
   const addEntry = (newEntry) => {
     setEntry([...entry, newEntry]);
   }
@@ -43,6 +49,8 @@ const ExerciseEntry = ({ name, exerciseIndex, exerciseToAdd }) => {
 
     <div>
       <button onClick={grabVideo}>How to</button>
+      <button onClick={() => setShowGraph(true)}>Display data</button>
+      {showGraph ? <GraphDisplay exerciseName={ name } setShowGraph={ setShowGraph }/> : <></>}
       <h3>Exercise: {name}</h3>
       {sets.map((set, index) => (
       <SetEntry
