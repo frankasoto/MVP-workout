@@ -17,7 +17,9 @@ client.connect()
 
 
 const getExerciseList = (req, res) => {
-    //used to get the list of exercises for the modal  //////sort it by category?
+  console.log('req body', (req.url.split('=')))
+  let search = req.url.split('=')[1];
+  if (search === '' || search === 'reset%20filter') {
     let query = 'SELECT exercise_name, category, videoLink FROM exercises';
 
     client.query(query)
@@ -28,6 +30,14 @@ const getExerciseList = (req, res) => {
         console.log('err', err);
         res.sendStatus(404);
       });
+  } else {
+    let query = `SELECT exercise_name, category, videoLink FROM exercises WHERE category='${search}'`;
+    client.query(query)
+      .then((results) => res.send(results.rows))
+      .catch(() => res.sendStatus(404));
+
+  }
+    //used to get the list of exercises for the modal  //////sort it by category?
 }
 
 const submitWorkout = (req, res) => {
@@ -59,12 +69,21 @@ const getDates = (req, res) => {
 
 const getWorkoutData = (req, res) => {
 
-  console.log('date is:', req.params.date);
   let date = req.params.date;
   const query = `SELECT * FROM workoutEntry WHERE date_completed='${date}'`
   client.query(query)
     .then((results) => res.send(results.rows))
     .catch((err) => console.log(err));
+}
+
+const videoFetch = (req, res) => {
+  let videoName = req.query.name;
+  console.log('query is', req.query);
+  const query = `SELECT videoLink FROM exercises WHERE exercise_name=${videoName}`;
+
+  client.query(query)
+    .then((results) => res.send(results.rows))
+    .catch(() => res.sendStatus(404));
 }
 
 
@@ -74,3 +93,4 @@ module.exports.getExerciseList = getExerciseList;
 module.exports.submitWorkout = submitWorkout;
 module.exports.getDates = getDates;
 module.exports.getWorkoutData = getWorkoutData;
+module.exports.videoFetch = videoFetch;
