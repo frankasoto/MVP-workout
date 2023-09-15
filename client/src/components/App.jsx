@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import ExerciseModal from './ExerciseModal.jsx';
 import ExerciseEntry from './ExerciseEntry.jsx';
-// import MainPage from './MainPage.jsx';
 import axios from 'axios';
+import { OuterContainer, StyledButton, BottomButton } from './Styles/Themes.jsx';
 
-const App = () => {
-  console.log('entered app');
+const App = ({ setSwitchPage }) => {
+  console.log('app');
   const [isOpen, setIsOpen] = useState(false)
 
   const [exercisesToRender, setExercisesToRender] = useState([]);
   const [exerciseToAdd, setExerciseToAdd] = useState([]); //exercises that will be submitted upon click
-
-  // let exerciseToAdd = []
-
 
 
 
@@ -20,7 +17,9 @@ const App = () => {
     console.log('exercise to add', exerciseToAdd);
     axios.post('/exercises', exerciseToAdd)
       .then(() => console.log('successfully submitted'))
-      .catch((err) => console.log(err));
+      .catch(() => console.log('Did not successfully submit'));
+
+    setSwitchPage(false);
   }
 
 
@@ -43,28 +42,24 @@ const App = () => {
 
   return (
     <div>
-
-      <h1>Exercise Tracker</h1>
       {isOpen ?
       <ExerciseModal
       toggleModal={ toggleModal }
       addExercise={ addExercise }
       /> : <></>}
-  {console.log('workout', exerciseToAdd)}
+
       {exercisesToRender?.map((exerciseName, index) => (
         <ExerciseEntry
         key={ index }
         name={ exerciseName }
         exerciseIndex={ index }
         exerciseToAdd={ exerciseToAdd }
-
-
-
         />
       ))}
 
-      <button onClick={ toggleModal }>Add exercise</button>
-      <button onClick={ submitEntry }>Finish workout</button>
+      <StyledButton onClick={ toggleModal }>Add exercise</StyledButton>
+      <StyledButton onClick={ submitEntry }>Finish workout</StyledButton>
+      <StyledButton onClick={() => setSwitchPage(false)}>Cancel</StyledButton>
     </div>
   )
 }

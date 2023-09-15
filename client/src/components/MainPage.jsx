@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import DisplayDates from './DisplayDates.jsx';
 import axios from 'axios';
-import styled from 'styled-components';
+import {ThemeProvider} from 'styled-components';
 import App from './App.jsx';
-const StyledButton = styled.button`
-background: none;
-border-radius: 10px;
-width: 150px;
+import { OuterContainer, CreateButton, ResultsButton, Header, theme, Container, Nav } from './Styles/Themes.jsx';
 
-`
 
 
 const MainPage = () => {
 
   const [dates, setDates] = useState('...Loading');
   const [willDisplay, setWillDisplay] = useState(false);
+  const [switchPage, setSwitchPage] = useState(false);
   useEffect(() => {
     axios.get('/exercises/dates')
       .then((results) => {
@@ -44,28 +41,22 @@ const MainPage = () => {
     }
   }
   // above this is used to display dates
-  const renderApp = () => {
-    console.log('this runs');
-    return (
-      <div>
-
-      <App />
-      </div>
-    )
-  }
-
-
-
-
-
 
   return (
-    <div>
-      <StyledButton onClick={() => renderApp()}>Create Your Workout</StyledButton>
-      <StyledButton>CHoose from template</StyledButton>
-      <StyledButton onClick={renderDates}>Review previous workouts</StyledButton>
-      {willDisplay ? display() : <></>}
-    </div>
+    <ThemeProvider theme={theme}>
+
+
+      <OuterContainer>
+        <Header>Workout Tracker</Header>
+        <ResultsButton onClick={renderDates}>Review previous workouts</ResultsButton>
+        <CreateButton onClick={() => setSwitchPage(true)}>Create Your Workout</CreateButton>
+        <Container>
+        {switchPage ? <App setSwitchPage={setSwitchPage}/> : <></>}
+        {willDisplay ? display() : <></>}
+        </Container>
+      </OuterContainer>
+      </ThemeProvider>
+
 
   )
 }
