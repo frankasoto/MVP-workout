@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import SetEntry from './SetEntry.jsx';
 import axios from 'axios';
 import VideoDisplay from './VideoDisplay.jsx';
 import GraphDisplay from './GraphDisplay.jsx';
-
+import { Exerciseentry, Dropdown, DropdownButton, SetButton,  SetData } from './Styles/Themes.jsx';
 
 const ExerciseEntry = ({ name, exerciseIndex, exerciseToAdd }) => {
 
@@ -15,8 +15,15 @@ const ExerciseEntry = ({ name, exerciseIndex, exerciseToAdd }) => {
 
   const [showGraph, setShowGraph] = useState(false);
 
+  const [open, setOpen] = useState(false);
 
-
+  const dropdown = () => {
+    if (open) {
+      setOpen(false);
+    } else {
+      setOpen(true);
+    }
+  }
 
   const addEntry = (newEntry) => {
     setEntry([...entry, newEntry]);
@@ -48,9 +55,23 @@ const ExerciseEntry = ({ name, exerciseIndex, exerciseToAdd }) => {
   return (
 
     <div>
-      <button onClick={grabVideo}>How to</button>
-      <button onClick={() => setShowGraph(true)}>Display data</button>
+      <Exerciseentry>
+      {/* <Dropdown onClick={dropdown}>...
+      </Dropdown>
+      {open ? (
+        <ul style={{'list-style-type': 'none'}}>
+          <li><DropdownButton onClick={grabVideo}>How to</DropdownButton></li>
+          <li><DropdownButton onClick={() => setShowGraph(true)}>Display data</DropdownButton></li>
+        </ul>
+      ) : <></>} */}
+      <Dropdown>
+
+
+        <DropdownButton onClick={grabVideo}>How to</DropdownButton>
+        <DropdownButton onClick={() => setShowGraph(true)}>Display data</DropdownButton>
+      </Dropdown>
       {showGraph ? <GraphDisplay exerciseName={ name } setShowGraph={ setShowGraph }/> : <></>}
+      < SetData>
       <h3>Exercise: {name}</h3>
       {sets.map((set, index) => (
       <SetEntry
@@ -63,10 +84,11 @@ const ExerciseEntry = ({ name, exerciseIndex, exerciseToAdd }) => {
         exerciseToAdd={ exerciseToAdd }
       />
       ))}
+      </SetData>
       {showVideo ? <VideoDisplay link={ videoLink } setShowVideo={setShowVideo} /> : <></>}
 
-      {sets.length < 5 ? <button className="addSet" onClick={addSet}>Add Set</button> : <></>}
-      <button onClick={submit}>submit entry</button>
+      {sets.length < 5 ? <SetButton className="addSet" onClick={addSet}>Add Set</SetButton> : <></>}
+      </Exerciseentry>
     </div>
 
 

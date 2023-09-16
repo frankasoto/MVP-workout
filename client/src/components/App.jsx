@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ExerciseModal from './ExerciseModal.jsx';
 import ExerciseEntry from './ExerciseEntry.jsx';
-// import MainPage from './MainPage.jsx';
+import { OuterContainer, Container, StyledButton, Header, ExerciseBox } from './Styles/Themes.jsx';
 import axios from 'axios';
 
 const App = () => {
@@ -38,28 +38,33 @@ const App = () => {
 
   return (
     <div>
+      <OuterContainer>
+        <Container>
+          <Header>Exercise Tracker</Header>
+          {isOpen ?
+          <ExerciseModal
+          toggleModal={ toggleModal }
+          addExercise={ addExercise }
+          /> : <></>}
 
-      <h1>Exercise Tracker</h1>
-      {isOpen ?
-      <ExerciseModal
-      toggleModal={ toggleModal }
-      addExercise={ addExercise }
-      /> : <></>}
-
-      {exercisesToRender?.map((exerciseName, index) => (
-        <ExerciseEntry
-        key={ index }
-        name={ exerciseName }
-        exerciseIndex={ index }
-        exerciseToAdd={ exerciseToAdd }
-
-
-
-        />
-      ))}
-
-      <button onClick={ toggleModal }>Add exercise</button>
-      <button onClick={ submitEntry }>Finish workout</button>
+          <ExerciseBox>
+            {exercisesToRender?.map((exerciseName, index) => (
+              <ExerciseEntry
+              key={ index }
+              name={ exerciseName }
+              exerciseIndex={ index }
+              exerciseToAdd={ exerciseToAdd }
+              />
+            ))}
+          </ExerciseBox>
+          <StyledButton onClick={ toggleModal }>Add exercise</StyledButton>
+          {exercisesToRender.length > 0 ?
+          <StyledButton
+            onClick={ submitEntry }>
+              Finish workout
+          </StyledButton> : <></>}
+          </Container>
+      </OuterContainer>
     </div>
   )
 }
