@@ -5,21 +5,16 @@ import ExerciseEntry from './ExerciseEntry.jsx';
 import axios from 'axios';
 
 const App = () => {
-  console.log('entered app');
   const [isOpen, setIsOpen] = useState(false)
 
   const [exercisesToRender, setExercisesToRender] = useState([]);
   const [exerciseToAdd, setExerciseToAdd] = useState([]); //exercises that will be submitted upon click
 
-  // let exerciseToAdd = []
-
 
 
 
   const submitEntry = () => {
-    console.log('exercise to add', exerciseToAdd);
     axios.post('/exercises', exerciseToAdd)
-      .then(() => console.log('successfully submitted'))
       .catch((err) => console.log(err));
   }
 
@@ -50,7 +45,7 @@ const App = () => {
       toggleModal={ toggleModal }
       addExercise={ addExercise }
       /> : <></>}
-  {console.log('workout', exerciseToAdd)}
+
       {exercisesToRender?.map((exerciseName, index) => (
         <ExerciseEntry
         key={ index }

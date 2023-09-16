@@ -24,16 +24,15 @@ const ExerciseModal = ({toggleModal, addExercise}) => {
   const [exerciseList, setExerciseList] = useState('...Loading');
   const [isLoaded, setIsLoaded] = useState(false);
 
-  let fullList;
+
 
   useEffect(() => {
     axios.get(`/exercises?type=${typeToSearch}`)
       .then((results) => {
         setExerciseList([...results.data]);
         setIsLoaded(true);
-        fullList = results.data;
+
       })
-      .then(() => fullList = exerciseList)
       .catch((err) => console.log(err));
   }, [typeToSearch])
 
@@ -45,7 +44,7 @@ const ExerciseModal = ({toggleModal, addExercise}) => {
 
 
   const renderList = () => {
-    console.log('isTrue?:', isLoaded);
+
     if (isLoaded) {
       return (
         <div>
@@ -64,8 +63,6 @@ const ExerciseModal = ({toggleModal, addExercise}) => {
 
   return (
     <StyledModal>
-      {console.log('type to search', typeToSearch)}
-      {console.log('full list', fullList)}
       <div className="exercise-types">
         <StyledContent>
           {renderList()}
