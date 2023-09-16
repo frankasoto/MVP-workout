@@ -2,17 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, CartesianGrid, YAxis, Label } from 'recharts';
 import axios from 'axios';
 import styled from 'styled-components';
+import { DisplayModal, StyledButton } from './Styles/Themes.jsx';
 
-const StyledModal = styled.div`
-top: 50%;
-left: 50%;
-z-index: 7;
-position: absolute;
-transform: translate(-50%, -50%);
-width: 100%;
-height: 100%;
-background-color: white;
-`
 const StyledContent = styled.div`
 display: flex;
 text-align: center;
@@ -24,7 +15,7 @@ left: 50%;
 `
 
 
-const GraphDisplay = ({ exerciseName }) => {
+const GraphDisplay = ({ exerciseName, setShowGraph }) => {
 
   const [exerciseData, setExerciseData] = useState('')
   const [isUpdated, setIsUpdated] = useState(false)
@@ -59,13 +50,14 @@ const GraphDisplay = ({ exerciseName }) => {
   };
 
   return (
-    <StyledModal>
+    <DisplayModal>
       <StyledContent>
 
         {isUpdated ? renderLineChart() : <></>}
 
       </StyledContent>
-    </StyledModal>
+        <StyledButton onClick={() => setShowGraph(false)}>Close</StyledButton>
+    </DisplayModal>
 
 
   )

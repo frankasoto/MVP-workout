@@ -13,100 +13,147 @@ const theme = {
   }
 };
 const OuterContainer = styled.div`
-display: grid;
-width: 100%;
-height: 100%;
-margin: 0;
-justify-items: center;
-align-items: center;
-text-align: center;
-grid-template-columns: 150px auto;
-grid-template-rows: 150px 150px 150px;
-grid-template-areas: 'header header header'
-                      'nav1 info info'
-                      'nav2 info info'
-                      'nav3 info info';
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  margin: 0;
+  justify-content: center;
+  justify-items: center;
+  text-align: center;
+  background-color: ${theme.background.main};
+
 
 `;
 const Container = styled.div`
-grid-area: info
-display: grid;
+  height: 100%;
+  width: 60%;
+  margin: 0;
+  background-color: ${theme.background.main};
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: 1fr;
+  grid-template-areas: 'text'
+                       'addExercise'
+                       'review';
+  justify-content: center;
+  text-align: center;
+  align-items: center;
 
-grid-template-columns: repeat(2,1fr);
-grid-template-rows: repeat(3,1fr);
-grid-template-areas:
-                     "text text"
-                     "create results"
-                     "footer footer";
-width: 70vw;
-height: 100vh;
-margin: 0;
-justify-items: center;
-align-items: center;
 `;
-
-
-const CreateButton = styled.button`
-position: relative;
-grid-area: nav1;
-max-width: 150px;
-max-height: 100px;
-`;
-const ResultsButton = styled.button`
-position: relative;
-grid-area: nav2;
-max-width: 150px;
-max-height: 100px;
-`;
-const Header = styled.div`
-grid-area: header;
-background-color: ${(({theme}) => theme.background.bar)};
-color: ${(({theme}) => theme.colors.primaryText)};
-width: 100%;
-height: 100%;
-
+const Nav = styled.div`
+  display: review;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  grid-template-areas: 'add reviews';
 `
-// background-color: ${(props) => props.theme.colors.button};
-const StyledModal = styled.div`
-top: 50%;
-left: 50%;
-z-index: 7;
-position: absolute;
-transform: translate(-50%, -50%);
-width: 100%;
-height: 100%;
+
+const AddButton = styled.button`
+  grid-area: add;
+  display: flex;
+  width: 40%;
+  height: 100px;
+  text-align: center;
+
+
+`;
+const StyledButton = styled.button`
+  grid-area: reviews;
+  display: flex;
+  width: 40%;
+  height: 100px;
+  text-align: center;
+
+`;
+const EntryDiv = styled.div`
+display: flex;
+jsutify-content:flex-end;`
+const EntryButton = styled.button`
+display: flex;
+flex-direction: end;
+justify-content: flex-end;
+`
+
+
+
+
+
+
+const Types = styled.button`
+width: 125px;
+height: 10%;`
+
+const Header = styled.h1`
+  height: 150px;
+  margin: 0;
+  text-align: center;
+
 `;
 
 
-// const StyledContent = styled.div`
-// text-align: center;
-// display: flex;
-// flex-direction: column;
-// `;
+const StyledModal = styled.div`
+  top: 50%;
+  left: 50%;
+  z-index: 7;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 75%;
+  height: 75%;
+  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+`;
+
+const DisplayModal = styled.div`
+  top: 50%;
+  left: 50%;
+  z-index: 7;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 75%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+`
 
 
 
-// const ExerciseButtons = styled(StyledButton)`
-// display: flex;
-// justify-content: start;
-// `
+const Exercise = styled.div`
 
-// const ListExercise = styled.div`
-// border: solid 1px;
-// width: 100%;
+  width: 100%;
+  height: 50px;
+  max-height: 70px;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+  &:hover {
+    background-color: white;
+    box-shadow: 10px 10px black;
+  }
+`
 
 
-// `
-// color: ${(props) => props.theme.colors.primaryText};
-// background-color: ${(props) => props.theme.colors.button};
 
-//${({theme}) => theme.colors.headings}
+
 export {
   theme,
   StyledModal,
   OuterContainer,
-  CreateButton,
+  AddButton,
   Container,
   Header,
-  ResultsButton
+  StyledButton,
+  Nav,
+  Exercise,
+  Types,
+  DisplayModal,
+  EntryButton,
+  EntryDiv
 }

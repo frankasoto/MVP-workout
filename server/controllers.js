@@ -26,15 +26,15 @@ const getExerciseList = (req, res) => {
       .then((data) => {
         res.send(data.rows);
       })
-      .catch((err) => {
-        console.log('err', err);
+      .catch(() => {
+
         res.sendStatus(404);
       });
   } else {
     let query = `SELECT exercise_name, category, videoLink FROM exercises WHERE category='${search}'`;
     client.query(query)
       .then((results) => {
-        console.log('results are', results.rows)
+
         res.send(results.rows)
       })
       .catch(() => res.sendStatus(404));
@@ -46,7 +46,7 @@ const getExerciseList = (req, res) => {
 const submitWorkout = (req, res) => {
 
   //take rows of data where each row is contains info on, and set info (weight/reps)
-  console.log('req', req.body)
+
   const query = 'INSERT INTO workoutEntry(exercise_name, info, date_completed) values($1, $2, $3)'
   req.body.forEach((exercise) => {
     let dataEntry = [];
@@ -55,7 +55,7 @@ const submitWorkout = (req, res) => {
     dataEntry[2] = format(new Date(), 'yyyy-MM-dd');
 
     client.query(query, dataEntry)
-    .catch((err) => console.log(err));
+    .catch(() => res.sendStatus(404));
   })
   res.sendStatus(201);
 }
@@ -104,14 +104,14 @@ const graphData = (req, res) => {
         let counter = 0;
         let obj = {};
         value.info.forEach((entry, index) => {
-          console.log('entry', value.date_completed)
+
           sum += Number(entry[index + 1].weight)
           counter += 1;
 
         })
         obj['average_weight'] = sum / counter;
         obj['date_completed'] = format(value.date_completed, 'MM-dd');
-        console.log('counter', counter)
+
         result.push(obj);
 
       })

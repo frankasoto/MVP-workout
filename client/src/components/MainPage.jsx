@@ -3,8 +3,12 @@ import DisplayDates from './DisplayDates.jsx';
 import axios from 'axios';
 import {ThemeProvider} from 'styled-components';
 import App from './App.jsx';
-import { OuterContainer, CreateButton, ResultsButton, Header, theme, Container, Nav } from './Styles/Themes.jsx';
+import { OuterContainer, AddButton, StyledButton, Header, theme, Container, Nav, StyledModal } from './Styles/Themes.jsx';
 
+
+document.body.style =`
+margin: 0;
+padding: 0;`
 
 
 const MainPage = () => {
@@ -47,11 +51,13 @@ const MainPage = () => {
 
 
       <OuterContainer>
-        <Header>Workout Tracker</Header>
-        <ResultsButton onClick={renderDates}>Review previous workouts</ResultsButton>
-        <CreateButton onClick={() => setSwitchPage(true)}>Create Your Workout</CreateButton>
         <Container>
-        {switchPage ? <App setSwitchPage={setSwitchPage}/> : <></>}
+        <Header>Workout Tracker</Header>
+          <Nav>
+            <AddButton onClick={() => setSwitchPage(true)}>Create Your Workout</AddButton>
+            <StyledButton onClick={renderDates}>Review previous workouts</StyledButton>
+          </Nav>
+        {switchPage ? <StyledModal><App setSwitchPage={setSwitchPage}/></StyledModal> : <></>}
         {willDisplay ? display() : <></>}
         </Container>
       </OuterContainer>

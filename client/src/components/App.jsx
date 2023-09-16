@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ExerciseModal from './ExerciseModal.jsx';
 import ExerciseEntry from './ExerciseEntry.jsx';
 import axios from 'axios';
-import { OuterContainer, StyledButton, BottomButton } from './Styles/Themes.jsx';
+import { OuterContainer, StyledButton, Header, Container, Nav, StyledModal } from './Styles/Themes.jsx';
 
 const App = ({ setSwitchPage }) => {
   console.log('app');
@@ -41,7 +41,12 @@ const App = ({ setSwitchPage }) => {
 
 
   return (
-    <div>
+      // <StyledModal>
+    <OuterContainer>
+      <Container>
+      <Header>Workout Tracker</Header>
+
+
       {isOpen ?
       <ExerciseModal
       toggleModal={ toggleModal }
@@ -56,11 +61,14 @@ const App = ({ setSwitchPage }) => {
         exerciseToAdd={ exerciseToAdd }
         />
       ))}
-
-      <StyledButton onClick={ toggleModal }>Add exercise</StyledButton>
-      <StyledButton onClick={ submitEntry }>Finish workout</StyledButton>
-      <StyledButton onClick={() => setSwitchPage(false)}>Cancel</StyledButton>
-    </div>
+      <Nav>
+        <StyledButton onClick={ toggleModal }>Add exercise</StyledButton>
+        {exercisesToRender.length >= 1 ? <StyledButton onClick={ submitEntry }>Finish workout</StyledButton> : <></>}
+        <StyledButton onClick={() => setSwitchPage(false)}>Cancel</StyledButton>
+      </Nav>
+      </Container>
+    </OuterContainer>
+      // </StyledModal>
   )
 }
 

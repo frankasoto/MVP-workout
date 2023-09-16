@@ -3,7 +3,7 @@ import SetEntry from './SetEntry.jsx';
 import axios from 'axios';
 import VideoDisplay from './VideoDisplay.jsx';
 import GraphDisplay from './GraphDisplay.jsx';
-
+import { StyledButton, EntryButton, EntryDiv } from './Styles/Themes.jsx';
 
 const ExerciseEntry = ({ name, exerciseIndex, exerciseToAdd }) => {
 
@@ -48,8 +48,11 @@ const ExerciseEntry = ({ name, exerciseIndex, exerciseToAdd }) => {
   return (
 
     <div>
-      <button onClick={grabVideo}>How to</button>
-      <button onClick={() => setShowGraph(true)}>Display data</button>
+      <EntryDiv>
+
+      <EntryButton onClick={grabVideo}>How to</EntryButton>
+      <EntryButton onClick={() => setShowGraph(true)}>Display data</EntryButton>
+      </EntryDiv>
       {showGraph ? <GraphDisplay exerciseName={ name } setShowGraph={ setShowGraph }/> : <></>}
       <h3>Exercise: {name}</h3>
       {sets.map((set, index) => (
@@ -65,8 +68,7 @@ const ExerciseEntry = ({ name, exerciseIndex, exerciseToAdd }) => {
       ))}
       {showVideo ? <VideoDisplay link={ videoLink } setShowVideo={setShowVideo} /> : <></>}
 
-      {sets.length < 5 ? <button className="addSet" onClick={addSet}>Add Set</button> : <></>}
-      <button onClick={submit}>submit entry</button>
+      {sets.length < 5 ? <StyledButton className="addSet" onClick={addSet}>Add Set</StyledButton> : <></>}
     </div>
 
 
